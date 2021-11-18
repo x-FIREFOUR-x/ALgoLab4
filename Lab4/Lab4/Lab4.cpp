@@ -1,6 +1,11 @@
-﻿#include <iostream>
-
+﻿#include "Interface.h"
+#include <ctime>
+using namespace std;
 int main()
 {
-    std::cout << "Hello World!\n";
+    srand(time(NULL));
+    Interface iface;
+    iface.console_interface();
+
+    return 0;
 }
