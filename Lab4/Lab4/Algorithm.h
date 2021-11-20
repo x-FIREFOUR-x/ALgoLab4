@@ -1,7 +1,7 @@
 #pragma once
 #include "Graph.h"
 #include <vector>
-#include <iostream>
+#include<algorithm>
 using namespace std;
 class Algorithm
 {
@@ -14,6 +14,7 @@ public:
 private:
 	void start_cliques(Graph& graph);				// генеруЇм початков≥ кл≥ки (стартову попул€ц≥ю) вс≥ можлив≥ кл≥ки з розм≥ром 1
 	bool is_clique(Graph& graph, vector<int> clq);
+	void sort_cliques();
 
 public:
 	

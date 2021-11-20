@@ -1,4 +1,5 @@
 #include "Algorithm.h"
+#include <numeric>
 
 void Algorithm::genetic_algo(Graph& graph, int& count_iter)
 {
@@ -10,19 +11,19 @@ void Algorithm::genetic_algo(Graph& graph, int& count_iter)
 	else
 	{
 		count_iter++;
+		sort_cliques();
 	}
 	
 }
 
 void Algorithm::start_cliques(Graph& graph)
 {
-	
 	for (int i = 0; i < graph.get_size(); i++)
 	{
 		vector<int> buf(graph.get_size(), 0);
 		buf[i] = 1;
-		cliques.push_back(buf);
 		sizes_cliques.push_back(1);
+		cliques.push_back(buf);
 	}
 }
 
@@ -55,6 +56,22 @@ bool Algorithm::is_clique(Graph& graph, vector<int> clq)
 	}
 
 	return is_clq;
+}
+
+void Algorithm::sort_cliques()
+{
+	vector<int> indexs(cliques.size());
+	iota(indexs.begin(), indexs.end(), 0);
+
+	sort(indexs.begin(), indexs.end(), [&](int a, int b) {return sizes_cliques[a] > sizes_cliques[b]; });
+
+	vector<vector<int>> buf = move(cliques);
+	cliques.resize(buf.size());
+	for (int i = 0; i < buf.size(); i++)
+	{
+		cliques[i] = move(buf[indexs[i]]);
+	}
+	sort(sizes_cliques.begin(), sizes_cliques.end(), [](int a, int b) { return a > b ; });
 }
 
 int Algorithm::get_amount_cliques()
