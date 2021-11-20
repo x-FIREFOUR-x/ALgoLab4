@@ -20,7 +20,7 @@ void Algorithm::genetic_algo(Graph& graph, int& count_iter, int num_crossing, in
 				child = crossing_one_point(graph, parent1, parent2);
 				break;
 			case 2:
-
+				child = crossing_two_point(graph, parent1, parent2);
 				break;
 			case 3:
 
@@ -200,6 +200,93 @@ pair<vector<int>,int> Algorithm::crossing_one_point(Graph& graph, int pr1, int p
 		return best_child;
 	}
 	
+}
+
+pair<vector<int>, int> Algorithm::crossing_two_point(Graph& graph, int pr1, int pr2)
+{
+	int n_lines = 2 + 1;     // двоточковий дає три відрізка 
+	int n_pr = 2;			//кількість батьків
+
+	vector<int> pr;			// індикси батьків
+	pr.push_back(pr1);
+	pr.push_back(pr2);
+
+	int point = rand() % (graph.get_size() + 1);
+	int point1;
+	int point2 = -1;
+	while (point2 == -1)
+	{
+		point1 = rand() % (graph.get_size() + 1);
+		if (point > point1)
+		{
+			point2 = point;
+		}
+		else
+			if (point < point1)
+			{
+				point2 = point1;
+				point1 = point;
+			}
+	}
+
+	vector<int>points;						// точки поділу відрізка (begin, point, end) 
+	points.push_back(0);
+	points.push_back(point1);
+	points.push_back(point2);
+	points.push_back(graph.get_size());
+
+	vector<vector<int>> childrens;			// нащадки
+	vector<int> sizes_childrens;
+
+	for (int i = 0; i < n_pr; i++)      // батько першого відрізка
+	{
+		for (int j = 0; j < n_pr; j++)			// батько другого выдрызка
+		{
+			for (int t = 0; t < n_pr; t++)
+			{
+				if (i != j || i != t)
+				{
+					vector<int> numb_parentr;						// номери батьків (0 або 1) в pr з яких буде братися k-ий відрізок
+					numb_parentr.push_back(i);
+					numb_parentr.push_back(j);
+					numb_parentr.push_back(t);
+
+					vector<int> child;
+					for (int k = 0; k < n_lines; k++)		// номер відрізка
+					{
+						int in_parent = pr[numb_parentr[k]];		// індекс батька
+						vector<int> line;				// вирізаєм k-ий відрізок в першого чи другого батька
+
+						auto it_l1_begin = line.begin();
+						auto it_pr_begin = cliques[in_parent].begin() + points[k];
+						auto it_pr_p = cliques[in_parent].begin() + points[k + 1];
+						line.insert(it_l1_begin, it_pr_begin, it_pr_p);
+
+						child.insert(child.end(), line.begin(), line.end());	//вставляєм відрізок k-ий в сина
+					}
+
+					int amount_ver = calculate_size_clique(child);
+					if (is_clique(graph, child) && amount_ver > 0)		// перевіряєм чи син є клікою
+					{
+						childrens.push_back(child);
+						sizes_childrens.push_back(amount_ver);
+					}
+				}
+			}
+		}
+	}
+
+	if (sizes_childrens.size() > 0)
+	{
+		int index = search_best_child(graph, sizes_childrens);
+		pair<vector<int>, int> best_child(childrens[index], sizes_childrens[index]);
+		return best_child;
+	}
+	{
+		pair<vector<int>, int> best_child;
+		return best_child;
+	}
+
 }
 
 

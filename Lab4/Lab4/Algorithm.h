@@ -19,6 +19,7 @@ private:
 	void sort_cliques();							// посортувати кліки по спаданюю кількості вершин
 
 	pair<vector<int>, int> crossing_one_point(Graph& graph, int pr1, int pr2);
+	pair<vector<int>, int> crossing_two_point(Graph& graph, int pr1, int pr2);
 
 	bool mutation1(Graph& graph, pair<vector<int>, int>& child);				// 1 різновид мутації (заміна місцями два випадкових гена)
 	bool mutation2(Graph& graph, pair<vector<int>, int>& child);				// 2 різновид мутації (інверсія випадкового гена)
