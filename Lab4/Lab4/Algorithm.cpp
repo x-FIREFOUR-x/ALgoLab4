@@ -57,7 +57,7 @@ void Algorithm::genetic_algo(Graph& graph, int& count_iter, int num_crossing, in
 				local_upgrade1(graph, child);
 				break;
 			case 2:
-				
+				local_upgrade2(graph, child);
 				break;
 			}
 
@@ -133,6 +133,8 @@ void Algorithm::sort_cliques()
 	sort(sizes_cliques.begin(), sizes_cliques.end(), [](int a, int b) { return a > b ; });
 }
 
+
+
 pair<vector<int>,int> Algorithm::crossing_one_point(Graph& graph, int pr1, int pr2)
 {
 	int n_lines = 1 + 1;     // одноточковий дає два відрізка 
@@ -199,6 +201,9 @@ pair<vector<int>,int> Algorithm::crossing_one_point(Graph& graph, int pr1, int p
 	}
 	
 }
+
+
+
 
 bool Algorithm::mutation1(Graph& graph, pair<vector<int>, int>& child)
 {
@@ -292,6 +297,9 @@ bool Algorithm::mutation3(Graph& graph, pair<vector<int>, int>& child)
 	return success_mutation;
 }
 
+
+
+
 bool Algorithm::local_upgrade1(Graph& graph, pair<vector<int>, int>& child)
 {
 	bool success_local_up = true;
@@ -330,6 +338,47 @@ bool Algorithm::local_upgrade1(Graph& graph, pair<vector<int>, int>& child)
 	return success_local_up;
 }
 
+bool Algorithm::local_upgrade2(Graph& graph, pair<vector<int>, int>& child)
+{
+	bool success_local_up = true;
+
+	vector<int> up_child = child.first;
+	int size_up_child = child.second;
+
+	vector<int> index_1_genes;
+	for (int i = 0; i < up_child.size(); i++)
+	{
+		if (up_child[i] == 1)
+			index_1_genes.push_back(i);
+	}
+
+	if (!index_1_genes.empty())
+	{
+		int rand_0_gene = rand() % index_1_genes.size();
+		int in_gene = index_1_genes[rand_0_gene];
+
+		int in_gene_adj = rand() % graph.get_size();
+		while (graph.get_element(in_gene, in_gene_adj) == 0 || up_child[in_gene_adj] == 1)
+		{
+			in_gene_adj = rand() % graph.get_size();
+		}
+
+		up_child[in_gene_adj] = 1;
+		size_up_child++;
+
+		success_local_up = is_clique(graph, up_child);
+	}
+	else
+	{
+		success_local_up = false;
+	}
+
+	return success_local_up;
+}
+
+
+
+
 int Algorithm::calculate_size_clique(vector<int>& clq)
 {
 	int s = 0;
@@ -359,10 +408,6 @@ int Algorithm::get_amount_cliques()
 {
 	return cliques.size();
 }
-
-
-
-
 
 vector<int> Algorithm::get_clique(int number)
 {

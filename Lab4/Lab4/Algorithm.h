@@ -15,16 +15,17 @@ public:
 
 private:
 	void start_cliques(Graph& graph);				// генеруєм початкові кліки (стартову популяцію) всі можливі кліки з розміром 1
-	bool is_clique(Graph& graph, vector<int> clq);
-	void sort_cliques();
+	bool is_clique(Graph& graph, vector<int> clq);	// перевірити чи розвязок є клікою
+	void sort_cliques();							// посортувати кліки по спаданюю кількості вершин
 
 	pair<vector<int>, int> crossing_one_point(Graph& graph, int pr1, int pr2);
 
-	bool mutation1(Graph& graph, pair<vector<int>, int>& child);				// 1 різновид мутації (заміна місцями два випадкових гена )
-	bool mutation2(Graph& graph, pair<vector<int>, int>& child);				// 2 різновид мутації (інверсія випадкового гена )
+	bool mutation1(Graph& graph, pair<vector<int>, int>& child);				// 1 різновид мутації (заміна місцями два випадкових гена)
+	bool mutation2(Graph& graph, pair<vector<int>, int>& child);				// 2 різновид мутації (інверсія випадкового гена)
 	bool mutation3(Graph& graph, pair<vector<int>, int>& child);				// 3 різновид мутації (інвертуєм ген з шансом і так всі гени)
 
-	bool local_upgrade1(Graph& graph, pair<vector<int>, int>& child);				// 1 різновид локального покращення (заміна випадкового 0 гена на 1 )
+	bool local_upgrade1(Graph& graph, pair<vector<int>, int>& child);				// 1 різновид локального покращення (заміна випадкового 0 гена на 1)
+	bool local_upgrade2(Graph& graph, pair<vector<int>, int>& child);				// 2 різновид локального покращення (додавання вершини в кліку що має дугу з вершиною в кліці )
 
 	int calculate_size_clique(vector<int>& clq);								// підрахунок кількості вершин в кліці (clq)
 	int search_best_child(Graph& graph, vector<int>& sizes_childrens);			// пошук індикса найкращого сина по кількості їх вершин (sizes_childrens)

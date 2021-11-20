@@ -32,9 +32,9 @@ void Interface::console_interface()
 		int num_local_up;
 		cout << "Input number crossing: " ;
 		cin >> num_crossing;
-		cout << "Input number mutation(0(nothing) 1(swap) 2(inverse rand gene) 3(inverse all gene chanse)): " ;
+		cout << "Input number mutation(0[nothing], 1[swap two rand gene], 2[inverse rand gene], 3[inverse all gene chanse]): ";
 		cin >> num_mutation;
-		cout << "Input number local upgrade: " ;
+		cout << "Input number local upgrade(0[nothing], 1[inverse rand 0 gen], 2[add adjacent vertices of verttices in gene 1]): " ;
 		cin >> num_local_up;
 		
 		Algorithm algo;
@@ -86,9 +86,9 @@ void Interface::console_interface()
 		int num_local_up;
 		cout << "Input number crossing:";
 		cin >> num_crossing;
-		cout << "Input number mutation(0(nothing) 1(swap) 2(inverse rand gene) 3(inverse all gene chanse)): ";
+		cout << "Input number mutation(0[nothing], 1[swap two rand gene], 2[inverse rand gene], 3[inverse all gene chanse]): ";
 		cin >> num_mutation;
-		cout << "Input number local upgrade:";
+		cout << "Input number local upgrade(0[nothing], 1[inverse rand 0 gen], 2[add adjacent vertices of verttices in gene 1]): ";
 		cin >> num_local_up;
 
 		Algorithm algo;
