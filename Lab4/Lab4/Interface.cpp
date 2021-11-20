@@ -30,7 +30,7 @@ void Interface::console_interface()
 		int num_crossing;
 		int num_mutation;
 		int num_local_up;
-		cout << "Input number crossing: " ;
+		cout << "Input number crossing(1[crossing one point], 2[crossing two point], 3[uniform crossing]): " ;
 		cin >> num_crossing;
 		cout << "Input number mutation(0[nothing], 1[swap two rand gene], 2[inverse rand gene], 3[inverse all gene chanse]): ";
 		cin >> num_mutation;
@@ -84,7 +84,7 @@ void Interface::console_interface()
 		int num_crossing;
 		int num_mutation;
 		int num_local_up;
-		cout << "Input number crossing:";
+		cout << "Input number crossing(1[crossing one point], 2[crossing two point], 3[uniform crossing]): ";
 		cin >> num_crossing;
 		cout << "Input number mutation(0[nothing], 1[swap two rand gene], 2[inverse rand gene], 3[inverse all gene chanse]): ";
 		cin >> num_mutation;

@@ -23,7 +23,7 @@ void Algorithm::genetic_algo(Graph& graph, int& count_iter, int num_crossing, in
 				child = crossing_two_point(graph, parent1, parent2);
 				break;
 			case 3:
-
+				child = uniform_crossing(graph, parent1, parent2);
 				break;
 		}
 
@@ -287,6 +287,33 @@ pair<vector<int>, int> Algorithm::crossing_two_point(Graph& graph, int pr1, int 
 		return best_child;
 	}
 
+}
+
+pair<vector<int>, int> Algorithm::uniform_crossing(Graph& graph, int pr1, int pr2)
+{
+	vector<int> pr;			// індикси батьків
+	pr.push_back(pr1);
+	pr.push_back(pr2);
+
+	vector<int> child;
+
+	for (int i = 0; i < graph.get_size(); i++)
+	{
+		int n_parent = rand() % 2;
+
+		int gene = cliques[pr[n_parent]][i];
+		child.push_back(gene);
+	}
+	if (is_clique(graph, child))
+	{
+		int size = calculate_size_clique(child);
+
+		return  pair<vector<int>, int>(child, size);
+	}
+	else
+	{
+		return pair<vector<int>, int>();
+	}
 }
 
 
