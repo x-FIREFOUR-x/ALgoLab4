@@ -40,6 +40,7 @@ void Interface::console_interface()
 		Algorithm algo;
 		int count_iter = 0;
 
+		unsigned int start = clock();
 		while (count_iter - 1 != amount_iter)
 		{
 			algo.genetic_algo(graph, count_iter, num_crossing, num_mutation, num_local_up);
@@ -53,6 +54,8 @@ void Interface::console_interface()
 				cout << "----------------------------------------------" << endl;
 			}
 		}
+		unsigned int end = clock();
+		cout << "Time: " << (float)(end - start) / 1000 << "seconds" << endl;
 	}
 	else
 	{
@@ -94,6 +97,7 @@ void Interface::console_interface()
 		Algorithm algo;
 		int count_iter = 0;
 
+		unsigned int start = clock();
 		while (count_iter - 1 != amount_iter)
 		{
 			algo.genetic_algo(graph, count_iter, num_crossing, num_mutation, num_local_up);
@@ -107,7 +111,8 @@ void Interface::console_interface()
 				cout << "----------------------------------------------" << endl;
 			}
 		}
-		
+		unsigned int end = clock();
+		cout << "Time: " << (float)(end - start) / 1000 << "seconds" << endl;
 		file.write_graph(graph);
 	}
 
@@ -136,12 +141,13 @@ void Interface::write_cliques(Algorithm algo)
 	{
 		clq = algo.get_clique(i);
 		count_ver = algo.get_size_clique(i);
+		cout << "(" << count_ver << ") ";
+		cout << endl;
 		for (int j = 0; j < clq.size(); j++)
 		{
 			cout << clq[j] << " ";
 		}
-		cout << " (" << count_ver << ")";
-		cout << endl;
+		
 	}
 }
 
