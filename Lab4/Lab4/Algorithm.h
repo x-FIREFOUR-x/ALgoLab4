@@ -21,6 +21,7 @@ private:
 	pair<vector<int>, int> crossing_one_point(Graph& graph, int pr1, int pr2);
 
 	bool mutation1(Graph& graph, pair<vector<int>, int>& child);				// 1 різновид мутації (заміна випадкового 0 гена на 1 )
+	bool mutation2(Graph& graph, pair<vector<int>, int>& child);				// 2 різновид мутації (інверсія випадкового гена )
 
 	int calculate_size_clique(vector<int>& clq);								// підрахунок кількості вершин в кліці (clq)
 	int search_best_child(Graph& graph, vector<int>& sizes_childrens);			// пошук індикса найкращого сина по кількості їх вершин (sizes_childrens)

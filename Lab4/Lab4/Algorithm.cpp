@@ -201,6 +201,36 @@ bool Algorithm::mutation1(Graph& graph, pair<vector<int>, int>& child)
 	return success_mutation;
 }
 
+bool Algorithm::mutation2(Graph& graph, pair<vector<int>, int>& child)
+{
+	bool success_mutation = true;
+
+	vector<int> mutat_child = child.first;
+	int size_mutat_child = child.second;
+
+	int in_gene = rand() % graph.get_size();
+		
+	if (mutat_child[in_gene] == 0)
+	{
+		mutat_child[in_gene] = 1;
+		size_mutat_child++;
+	}
+	else
+	{
+		mutat_child[in_gene] = 0;
+		size_mutat_child--;
+	}
+	success_mutation = is_clique(graph, mutat_child);
+
+	if (success_mutation)
+	{
+		child.first = mutat_child;
+		child.second = size_mutat_child;
+	}
+
+	return success_mutation;
+}
+
 int Algorithm::calculate_size_clique(vector<int>& clq)
 {
 	int s = 0;
