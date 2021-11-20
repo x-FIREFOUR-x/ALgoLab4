@@ -5,8 +5,8 @@ void Algorithm::genetic_algo(Graph& graph, int& count_iter, int num_crossing, in
 {
 	if (count_iter == 0)
 	{
-		start_cliques(graph);
-		//start_rand_n_cliques(graph);
+		//start_cliques(graph);
+		start_rand_n_cliques(graph);
 		count_iter++;
 	}
 	else
