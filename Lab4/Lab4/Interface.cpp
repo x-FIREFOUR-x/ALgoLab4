@@ -26,13 +26,23 @@ void Interface::console_interface()
 		cin >> step;
 
 		write_graph(graph);
+
+		int num_crossing;
+		int num_mutation;
+		int num_local_up;
+		cout << "Input number crossing:" ;
+		cin >> num_crossing;
+		cout << "Input number mutation:" ;
+		cin >> num_mutation;
+		cout << "Input number local upgrade:" ;
+		cin >> num_local_up;
 		
 		Algorithm algo;
 		int count_iter = 0;
 
 		while (count_iter - 1 != amount_iter)
 		{
-			algo.genetic_algo(graph, count_iter);
+			algo.genetic_algo(graph, count_iter, num_crossing, num_mutation, num_local_up);
 
 			if (((count_iter - 1) % step) == 0)
 			{
@@ -71,12 +81,22 @@ void Interface::console_interface()
 
 		write_graph(graph);
 
+		int num_crossing;
+		int num_mutation;
+		int num_local_up;
+		cout << "Input number crossing:";
+		cin >> num_crossing;
+		cout << "Input number mutation:" ;
+		cin >> num_mutation;
+		cout << "Input number local upgrade:";
+		cin >> num_local_up;
+
 		Algorithm algo;
 		int count_iter = 0;
 
 		while (count_iter - 1 != amount_iter)
 		{
-			algo.genetic_algo(graph, count_iter);
+			algo.genetic_algo(graph, count_iter, num_crossing, num_mutation, num_local_up);
 
 			if (((count_iter - 1) % step) == 0)
 			{

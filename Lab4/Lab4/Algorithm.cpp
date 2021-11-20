@@ -1,7 +1,7 @@
 #include "Algorithm.h"
 #include <numeric>
 
-void Algorithm::genetic_algo(Graph& graph, int& count_iter)
+void Algorithm::genetic_algo(Graph& graph, int& count_iter, int num_crossing, int num_mutation, int num_local_up)
 {
 	if (count_iter == 0)
 	{
@@ -12,16 +12,50 @@ void Algorithm::genetic_algo(Graph& graph, int& count_iter)
 	{
 		int parent1 = 0;
 		int parent2 = rand() % (cliques.size() - 1) + 1;
-		pair<vector<int>,int> child = crossing_one_point(graph, parent1, parent2);
+
+		pair<vector<int>, int> child;
+		switch (num_crossing)
+		{
+			case 1:
+				child = crossing_one_point(graph, parent1, parent2);
+				break;
+			case 2:
+
+				break;
+			case 3:
+
+				break;
+		}
 
 		if (!child.first.empty())
 		{
 			int mut_will = rand() % 100;
 			if (mut_will < chance_mutation)
 			{
-				mutation1(graph, child);
+				switch (num_mutation)
+				{
+				case 1:
+					mutation1(graph, child);
+					break;
+				case 2:
+					mutation2(graph, child);
+					break;
+				case 3:
+					mutation3(graph, child);
+					break;
+				}
+				
 			}
 
+			switch (num_local_up)
+			{
+			case 1:
+				local_upgrade1(graph, child);
+				break;
+			case 2:
+				
+				break;
+			}
 
 			if (sizes_cliques[sizes_cliques.size() - 1] < child.second)
 			{
@@ -229,6 +263,81 @@ bool Algorithm::mutation2(Graph& graph, pair<vector<int>, int>& child)
 	}
 
 	return success_mutation;
+}
+
+bool Algorithm::mutation3(Graph& graph, pair<vector<int>, int>& child)
+{
+	bool success_mutation = true;
+	int chanse_inv_gene = 20;
+	vector<int> mutat_child = child.first;
+	int size_mutat_child = child.second;
+
+	for (int i = 0; i < graph.get_size(); i++)
+	{
+		int will_inv_gene = rand() % 100;
+		if (will_inv_gene < chanse_inv_gene)
+		{
+			if (mutat_child[i] == 0)
+			{
+				mutat_child[i] = 1;
+				size_mutat_child++;
+			}
+			else
+			{
+				mutat_child[i] = 0;
+				size_mutat_child--;
+			}
+		}
+		
+	}
+	
+	success_mutation = is_clique(graph, mutat_child);
+
+	if (success_mutation)
+	{
+		child.first = mutat_child;
+		child.second = size_mutat_child;
+	}
+
+	return success_mutation;
+}
+
+bool Algorithm::local_upgrade1(Graph& graph, pair<vector<int>, int>& child)
+{
+	bool success_local_up = true;
+
+	vector<int> up_child = child.first;
+	int size_up_child = child.second;
+
+	vector<int> index_0_genes;
+	for (int i = 0; i < up_child.size(); i++)
+	{
+		if (up_child[i] == 0)
+			index_0_genes.push_back(i);
+	}
+
+	if (!index_0_genes.empty())
+	{
+		int rand_0_gene = rand() % index_0_genes.size();
+		int in_gene = index_0_genes[rand_0_gene];
+
+		up_child[in_gene] = 1;
+		size_up_child++;
+
+		success_local_up = is_clique(graph, up_child);
+	}
+	else
+	{
+		success_local_up = false;
+	}
+
+	if (success_local_up)
+	{
+		child.first = up_child;
+		child.second = size_up_child;
+	}
+
+	return success_local_up;
 }
 
 int Algorithm::calculate_size_clique(vector<int>& clq)
