@@ -3,6 +3,7 @@
 
 void Interface::console_interface()
 {
+
 	int how;
 	cout << "Input(1- read graph file, 2 - random graph): ";
 	cin >> how;
@@ -26,26 +27,22 @@ void Interface::console_interface()
 
 		write_graph(graph);
 		
-		Algorithm algo();
-
+		Algorithm algo;
 		int count_iter = 0;
 
-		/*
 		while (count_iter - 1 != amount_iter)
 		{
-			
+			algo.genetic_algo(graph, count_iter);
 
 			if (((count_iter - 1) % step) == 0)
 			{
 				cout << "_____________________________________________" << endl;
 				cout << "Iteration¹ " << count_iter - 1 << endl;
-				//write_areas(algo);
+				write_cliques(algo);
 				
 				cout << "----------------------------------------------" << endl;
 			}
 		}
-		*/
-
 	}
 	else
 	{
@@ -74,27 +71,24 @@ void Interface::console_interface()
 
 		write_graph(graph);
 
-		Algorithm algo();
+		Algorithm algo;
 		int count_iter = 0;
 
-		/*
 		while (count_iter - 1 != amount_iter)
 		{
-			
+			algo.genetic_algo(graph, count_iter);
 
 			if (((count_iter - 1) % step) == 0)
 			{
 				cout << "_____________________________________________" << endl;
 				cout << "Iteration# " << count_iter - 1 << endl;
-				
+				write_cliques(algo);
 
 				cout << "----------------------------------------------" << endl;
 			}
 		}
-		*/
-
-		file.write_graph(graph);
 		
+		file.write_graph(graph);
 	}
 
 
@@ -109,6 +103,24 @@ void Interface::write_graph(Graph graph)
 		{
 			cout << graph.get_element(i, j) << " ";
 		}
+		cout << endl;
+	}
+}
+
+void Interface::write_cliques(Algorithm algo)
+{
+	cout << "Cliques:" << endl;
+	vector<int> clq;
+	int count_ver;
+	for (int i = 0; i < algo.get_amount_cliques(); i++)
+	{
+		clq = algo.get_clique(i);
+		count_ver = algo.get_size_clique(i);
+		for (int j = 0; j < clq.size(); j++)
+		{
+			cout << clq[j] << " ";
+		}
+		cout << " (" << count_ver << ")";
 		cout << endl;
 	}
 }
