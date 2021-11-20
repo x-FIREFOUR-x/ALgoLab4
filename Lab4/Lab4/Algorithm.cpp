@@ -34,6 +34,8 @@ void Algorithm::genetic_algo(Graph& graph, int& count_iter, int num_crossing, in
 			{
 				switch (num_mutation)
 				{
+				case 0:
+					break;
 				case 1:
 					mutation1(graph, child);
 					break;
@@ -49,6 +51,8 @@ void Algorithm::genetic_algo(Graph& graph, int& count_iter, int num_crossing, in
 
 			switch (num_local_up)
 			{
+			case 0:
+				break;
 			case 1:
 				local_upgrade1(graph, child);
 				break;
@@ -154,8 +158,7 @@ pair<vector<int>,int> Algorithm::crossing_one_point(Graph& graph, int pr1, int p
 		for (int j = 0; j < n_pr; j++)			// батько другого выдрызка
 		{
 			if (i != j)
-			{
-					
+			{	
 				vector<int> numb_parentr;						// номери батьків (0 або 1) в pr з яких буде братися k-ий відрізок
 				numb_parentr.push_back(i);
 				numb_parentr.push_back(j);
@@ -204,27 +207,14 @@ bool Algorithm::mutation1(Graph& graph, pair<vector<int>, int>& child)
 	vector<int> mutat_child = child.first;
 	int size_mutat_child = child.second;
 
-	vector<int> index_0_genes;
-	for (int i = 0; i < mutat_child.size(); i++)
-	{
-		if (mutat_child[i] == 0)
-			index_0_genes.push_back(i);
-	}
+	int gene1 = rand() % graph.get_size();
+	int gene2 = rand() % graph.get_size();
 
-	if (!index_0_genes.empty())
-	{
-		int rand_0_gene = rand() % index_0_genes.size();
-		int in_gene = index_0_genes[rand_0_gene];
+	int buf = mutat_child[gene1];
+	mutat_child[gene1] = mutat_child[gene2];
+	mutat_child[gene2] = buf;
 
-		mutat_child[in_gene] = 1;
-		size_mutat_child++;
-
-		success_mutation = is_clique(graph, mutat_child);
-	}
-	else
-	{
-		success_mutation = false;
-	}
+	success_mutation = is_clique(graph, mutat_child);
 	
 	if (success_mutation)
 	{

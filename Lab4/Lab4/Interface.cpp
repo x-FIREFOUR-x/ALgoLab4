@@ -30,11 +30,11 @@ void Interface::console_interface()
 		int num_crossing;
 		int num_mutation;
 		int num_local_up;
-		cout << "Input number crossing:" ;
+		cout << "Input number crossing: " ;
 		cin >> num_crossing;
-		cout << "Input number mutation:" ;
+		cout << "Input number mutation(0(nothing) 1(swap) 2(inverse rand gene) 3(inverse all gene chanse)): " ;
 		cin >> num_mutation;
-		cout << "Input number local upgrade:" ;
+		cout << "Input number local upgrade: " ;
 		cin >> num_local_up;
 		
 		Algorithm algo;
@@ -86,7 +86,7 @@ void Interface::console_interface()
 		int num_local_up;
 		cout << "Input number crossing:";
 		cin >> num_crossing;
-		cout << "Input number mutation:" ;
+		cout << "Input number mutation(0(nothing) 1(swap) 2(inverse rand gene) 3(inverse all gene chanse)): ";
 		cin >> num_mutation;
 		cout << "Input number local upgrade:";
 		cin >> num_local_up;
