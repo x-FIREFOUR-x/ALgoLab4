@@ -25,7 +25,7 @@ void Interface::console_interface()
 		cout << "Input step iteration: ";
 		cin >> step;
 
-		write_graph(graph);
+		//write_graph(graph);
 
 		int num_crossing;
 		int num_mutation;
@@ -55,7 +55,7 @@ void Interface::console_interface()
 			}
 		}
 		unsigned int end = clock();
-		cout << "Time: " << (float)(end - start) / 1000 << "seconds" << endl;
+		cout << "Time: " << (float)(end - start) / 1000 << " seconds" << endl;
 	}
 	else
 	{
@@ -82,7 +82,7 @@ void Interface::console_interface()
 		cout << "Input step iteration: ";
 		cin >> step;
 
-		write_graph(graph);
+		//write_graph(graph);
 
 		int num_crossing;
 		int num_mutation;
@@ -112,7 +112,7 @@ void Interface::console_interface()
 			}
 		}
 		unsigned int end = clock();
-		cout << "Time: " << (float)(end - start) / 1000 << "seconds" << endl;
+		cout << "Time: " << (float)(end - start) / 1000 << " seconds" << endl;
 		file.write_graph(graph);
 	}
 
@@ -142,12 +142,11 @@ void Interface::write_cliques(Algorithm algo)
 		clq = algo.get_clique(i);
 		count_ver = algo.get_size_clique(i);
 		cout << "(" << count_ver << ") ";
-		cout << endl;
 		for (int j = 0; j < clq.size(); j++)
 		{
 			cout << clq[j] << " ";
 		}
-		
+		cout << endl;
 	}
 }
 

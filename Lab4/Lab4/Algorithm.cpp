@@ -6,6 +6,7 @@ void Algorithm::genetic_algo(Graph& graph, int& count_iter, int num_crossing, in
 	if (count_iter == 0)
 	{
 		start_cliques(graph);
+		//start_rand_n_cliques(graph);
 		count_iter++;
 	}
 	else
@@ -81,6 +82,24 @@ void Algorithm::start_cliques(Graph& graph)
 	{
 		vector<int> buf(graph.get_size(), 0);
 		buf[i] = 1;
+		sizes_cliques.push_back(1);
+		cliques.push_back(buf);
+	}
+}
+
+void Algorithm::start_rand_n_cliques(Graph& graph)
+{
+	vector<int> index_ver;
+	for (int i = 0; i < graph.get_size(); i++)
+	{
+		index_ver.push_back(i);
+	}
+	random_shuffle(index_ver.begin(), index_ver.end());
+
+	for (int i = 0; i < n_start_cliques && i < graph.get_size(); i++)
+	{
+		vector<int> buf(graph.get_size(), 0);
+		buf[index_ver[i]] = 1;
 		sizes_cliques.push_back(1);
 		cliques.push_back(buf);
 	}
@@ -517,6 +536,7 @@ int Algorithm::search_best_child(Graph& graph,vector<int>& sizes_childrens)
 	}
 	return index;
 }
+
 
 int Algorithm::get_amount_cliques()
 {

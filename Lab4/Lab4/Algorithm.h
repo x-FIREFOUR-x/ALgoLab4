@@ -6,7 +6,7 @@ using namespace std;
 class Algorithm
 {
 private:
-
+	int n_start_cliques = 15;
 	int chance_mutation = 50;				// шанс мутації в процентах
 	vector<vector<int>> cliques;			// вектор клік в популяції (кліка булевий вектор з 1(є вершина) і 0(нема вершини)) 
 	vector<int> sizes_cliques;				// вектор розмірів клік (кількість 1 в кліках)
@@ -15,12 +15,13 @@ public:
 
 private:
 	void start_cliques(Graph& graph);				// генеруєм початкові кліки (стартову популяцію) всі можливі кліки з розміром 1
+	void start_rand_n_cliques(Graph& graph);		// генеруєм випадкових n клік
 	bool is_clique(Graph& graph, vector<int> clq);	// перевірити чи розвязок є клікою
 	void sort_cliques();							// посортувати кліки по спаданюю кількості вершин
 
-	pair<vector<int>, int> crossing_one_point(Graph& graph, int pr1, int pr2);
-	pair<vector<int>, int> crossing_two_point(Graph& graph, int pr1, int pr2);
-	pair<vector<int>, int> uniform_crossing(Graph& graph, int pr1, int pr2);
+	pair<vector<int>, int> crossing_one_point(Graph& graph, int pr1, int pr2);		// одноточкове схрещування
+	pair<vector<int>, int> crossing_two_point(Graph& graph, int pr1, int pr2);		// двоточкове схрещування
+	pair<vector<int>, int> uniform_crossing(Graph& graph, int pr1, int pr2);		// рівномірне схрещування
 
 	bool mutation1(Graph& graph, pair<vector<int>, int>& child);				// 1 різновид мутації (заміна місцями два випадкових гена)
 	bool mutation2(Graph& graph, pair<vector<int>, int>& child);				// 2 різновид мутації (інверсія випадкового гена)
