@@ -314,20 +314,32 @@ pair<vector<int>, int> Algorithm::uniform_crossing(Graph& graph, int pr1, int pr
 	pr.push_back(pr1);
 	pr.push_back(pr2);
 
-	vector<int> child;
+	vector<vector<int>> childs;
+	vector<int> sizes_childs;
+	
 
-	for (int i = 0; i < graph.get_size(); i++)
+	for (int k = 0; k < 10; k++)
 	{
-		int n_parent = rand() % 2;
+		vector<int> child;
+		for (int i = 0; i < graph.get_size(); i++)
+		{
+			int n_parent = rand() % 2;
 
-		int gene = cliques[pr[n_parent]][i];
-		child.push_back(gene);
+			int gene = cliques[pr[n_parent]][i];
+			child.push_back(gene);
+		}
+		if (is_clique(graph, child))
+		{
+			int size = calculate_size_clique(child);
+			childs.push_back(child);
+			sizes_childs.push_back(size);
+		}
 	}
-	if (is_clique(graph, child))
+	
+	if (!childs.empty())
 	{
-		int size = calculate_size_clique(child);
-
-		return  pair<vector<int>, int>(child, size);
+		int index = search_best_child(graph, sizes_childs);
+		return  pair<vector<int>, int>(childs[index], sizes_childs[index]);
 	}
 	else
 	{
@@ -524,13 +536,13 @@ int Algorithm::calculate_size_clique(vector<int>& clq)
 
 int Algorithm::search_best_child(Graph& graph,vector<int>& sizes_childrens)
 {
-	int min = graph.get_size() + 1;
+	int max = 0;
 	int index;
 	for (int i = 0; i < sizes_childrens.size(); i++)
 	{
-		if (min > sizes_childrens[i])
+		if (max < sizes_childrens[i])
 		{
-			min = sizes_childrens[i];
+			max = sizes_childrens[i];
 			index = i;
 		}
 	}

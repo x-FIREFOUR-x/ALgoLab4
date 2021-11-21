@@ -38,7 +38,5 @@ public:
 	vector<int> get_clique(int number);				// отримати кліку з номером number
 	int get_size_clique(int number);				// отримати розмір кліки(кількість вершин) з номером number
 
-
-
 };
 
